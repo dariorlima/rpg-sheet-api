@@ -17,14 +17,14 @@ Globals:
     Timeout: 90
     Environment:
       Variables:
-        character_table_name: !Sub ${Environment}CharactersTable
+        character_table_name: CharactersTable
 
 Resources:
 
   CharactersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: !Sub ${Environment}CharactersTable
+      TableName: CharactersTable
       PrimaryKey:
         Name: id
         Type: String
@@ -35,7 +35,7 @@ Resources:
   RestApi:
     Type: AWS::Serverless::Api
     Properties:
-      Name: !Sub ${Environment}RestApi
+      Name: RestApi
       EndpointConfiguration: EDGE
       Cors:
         AllowHeaders: "'Content-Type,Accept'"
@@ -46,7 +46,7 @@ Resources:
   GetClientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}GetCharacter
+      FunctionName: GetCharacter
       CodeUri: './handlers/get_character'
       Policies:
         - Version: '2012-10-17'
@@ -68,7 +68,7 @@ Resources:
   PutClientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${Environment}GetCharacter
+      FunctionName: GetCharacter
       CodeUri: './handlers/get_character'
       Policies:
         - Version: '2012-10-17'
