@@ -64,7 +64,7 @@ Resources:
   PutClientFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: GetCharacter
+      FunctionName: PutCharacter
       CodeUri: './handlers/get_character'
       Policies:
         - Version: '2012-10-17'
