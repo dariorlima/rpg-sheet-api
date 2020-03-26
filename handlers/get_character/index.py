@@ -23,6 +23,9 @@ def get_characters(path_params, headers, ):
         
         return Success(item=character)
 
+    characters = characters_table.scan()['Items']
+    return Success(item=characters)
+
 
 def handler(event, context):
 

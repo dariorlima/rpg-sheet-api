@@ -68,6 +68,12 @@ Resources:
             Method: GET
             Path: /character
             RestApiId: !Ref RestApi  
+        RestApiCharacterId:
+          Type: Api
+          Properties:
+            Method: GET
+            Path: /character/{character_id}
+            RestApiId: !Ref RestApi
       Layers:
        - !Ref RpgSheetLayer
   
@@ -89,7 +95,7 @@ Resources:
           Type: Api
           Properties:
             Method: PUT
-            Path: /character
+            Path: /character/{character_id}
             RestApiId: !Ref RestApi  
       Layers:
        - !Ref RpgSheetLayer
@@ -134,7 +140,7 @@ Resources:
           Type: Api
           Properties:
             Method: DELETE
-            Path: /character
+            Path: /character/{character_id}
             RestApiId: !Ref RestApi  
       Layers:
        - !Ref RpgSheetLayer
