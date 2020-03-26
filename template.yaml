@@ -71,7 +71,7 @@ Resources:
       Layers:
        - !Ref RpgSheetLayer
   
-  PutClientFunction:
+  PutCharacterFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: PutCharacter
@@ -94,7 +94,7 @@ Resources:
       Layers:
        - !Ref RpgSheetLayer
 
-  PostClientFunction:
+  PostCharacterFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: PostCharacter
@@ -117,7 +117,7 @@ Resources:
       Layers:
        - !Ref RpgSheetLayer
 
-  DeleteClientFunction:
+  DeleteCharacterFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: DeleteCharacter
