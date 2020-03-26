@@ -48,7 +48,7 @@ Resources:
       LayerName: RpgSheetLayer
       RetentionPolicy: Delete
 
-  GetClientFunction:
+  GetCharacterFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: GetCharacter
@@ -68,8 +68,8 @@ Resources:
             Method: GET
             Path: /character
             RestApiId: !Ref RestApi  
-       Layers:
-        - !Ref RpgSheetLayer
+      Layers:
+       - !Ref RpgSheetLayer
   
   PutClientFunction:
     Type: AWS::Serverless::Function
