@@ -38,7 +38,16 @@ Resources:
         AllowOrigin: "'*'"
         AllowMethods: "'GET,POST,DELETE,PUT,OPTIONS'"
       StageName: dev
-  
+    
+  RpgSheetLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      CompatibleRuntimes:
+        - python3.7
+      ContentUri: './layers/rpg'
+      LayerName: RpgSheetLayer
+      RetentionPolicy: Delete
+
   GetClientFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -52,7 +61,6 @@ Resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:Scan
-                - cognito-idp:AdminGetUser
       Events:
         RestApi:
           Type: Api
@@ -60,12 +68,14 @@ Resources:
             Method: GET
             Path: /character
             RestApiId: !Ref RestApi  
+       Layers:
+        - !Ref RpgSheetLayer
   
   PutClientFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: PutCharacter
-      CodeUri: './handlers/get_character'
+      CodeUri: './handlers/put_character'
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -81,3 +91,50 @@ Resources:
             Method: PUT
             Path: /character
             RestApiId: !Ref RestApi  
+      Layers:
+       - !Ref RpgSheetLayer
+
+  PostClientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: PostCharacter
+      CodeUri: './handlers/post_character'
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Resource: '*'
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+      Events:
+        RestApi:
+          Type: Api
+          Properties:
+            Method: POST
+            Path: /character
+            RestApiId: !Ref RestApi  
+      Layers:
+       - !Ref RpgSheetLayer
+
+  DeleteClientFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DeleteCharacter
+      CodeUri: './handlers/delete_character'
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Resource: '*'
+              Action:
+                - dynamodb:DeleteItem
+      Events:
+        RestApi:
+          Type: Api
+          Properties:
+            Method: DELETE
+            Path: /character
+            RestApiId: !Ref RestApi  
+      Layers:
+       - !Ref RpgSheetLayer
