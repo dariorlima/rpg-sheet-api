@@ -66,6 +66,7 @@ Resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:Scan
+                - kinesis:PutRecord
       Events:
         RestApi:
           Type: Api
