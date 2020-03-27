@@ -6,6 +6,11 @@ Description: >
   Sample SAM Template for rpg-sheet-api
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+
+Parameters:
+  Stream:
+    Type: String
+
 Globals:
   Function:
     Runtime: python3.7
@@ -16,7 +21,7 @@ Globals:
         character_table_name: CharactersTable
 
 Resources:
-
+  
   CharactersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -144,3 +149,26 @@ Resources:
             RestApiId: !Ref RestApi  
       Layers:
        - !Ref RpgSheetLayer
+
+  DataStreamFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DataStreamFunction
+      CodeUri: './streams/data-stream'
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Resource: '*'
+              Action:
+                - kinesis:*
+                - firehose:*
+                - lambda:*
+      Events:
+        Stream:
+          Type: Kinesis
+          Properties:
+            Stream: !Ref Stream
+            BatchSize: 100
+            StartingPosition: LATEST
+    
