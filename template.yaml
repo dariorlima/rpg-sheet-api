@@ -154,7 +154,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: DataStreamFunction
-      CodeUri: './streams/data-stream'
+      CodeUri: './streams/data-streams'
       Policies:
         - Version: '2012-10-17'
           Statement:
